@@ -6,6 +6,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -14,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { Task } from './task.entity';
 
 @Controller('tasks')
 export class TasksController {
@@ -28,10 +30,10 @@ export class TasksController {
   //   }
   // }
 
-  // @Get(':id')
-  // getTaskById(@Param('id') id: string) {
-  //   return this.tasksService.getTaskById(id);
-  // }
+  @Get(':id')
+  getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
+    return this.tasksService.getTaskById(id);
+  }
 
   // @Post()
   // @UsePipes(ValidationPipe)
